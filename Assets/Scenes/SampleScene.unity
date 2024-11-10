@@ -1550,8 +1550,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpPower: 200
-  playerPower: 150
-  playerPowerInAir: 150
+  playerPower: 100
+  playerPowerInAir: 100
   maxSpeed: 6
 --- !u!114 &357694100
 MonoBehaviour:
