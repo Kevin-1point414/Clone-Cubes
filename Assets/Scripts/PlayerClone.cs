@@ -19,14 +19,17 @@ public class PlayerClone : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C) && selected && numberOfClonesCreatable > 0) 
+        if (Input.GetKeyDown(KeyCode.Mouse1) && selected && numberOfClonesCreatable > 0) 
         {
             numberOfClonesCreatable--;
             Vector3 changeInPosition = rigidbody.velocity * Time.deltaTime;
             changeInPosition.y *= 4;
             GameObject clone = Instantiate(gameObject, gameObject.transform.position - changeInPosition,
                 gameObject.transform.rotation);
-            rigidbody.velocity = new Vector2(rigidbody.velocity.x, rigidbody.velocity.y * 2);
+            if (rigidbody.velocity.y > 0)
+            {
+                rigidbody.velocity = new Vector2(rigidbody.velocity.x, rigidbody.velocity.y * 2);
+            }
             clone.GetComponent<PlayerClone>().selected = false;
             clone.GetComponent<SpriteRenderer>().color = Color.green;
             numberOfClonesCreatableDisplay.text = "Number of Clones Creatable: " +
