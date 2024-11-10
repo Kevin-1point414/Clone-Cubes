@@ -7,10 +7,10 @@ public class PlayerMovement : MonoBehaviour
     private bool grounded = true;
     private new Collider2D collider;
     private GameObject cameraGameObject;
-    [SerializeField] private float JumpPower;
-    [SerializeField] private float PlayerPower;
-    [SerializeField] private float PlayerPowerInAir;
-    [SerializeField] private float MaxSpeed;
+    [SerializeField] private float jumpPower;
+    [SerializeField] private float playerPower;
+    [SerializeField] private float playerPowerInAir;
+    [SerializeField] private float maxSpeed;
 
     void Start()
     {
@@ -38,8 +38,8 @@ public class PlayerMovement : MonoBehaviour
                 grounded = true;
             }
             if (contact.point.y < transform.position.y
-                && contact.point.x <= transform.position.x + 0.5f * transform.localScale.x + 0.01f
-                && contact.point.x >= transform.position.x - 0.5f * transform.localScale.x - 0.01f)
+                && contact.point.x <= transform.position.x + 0.5f * transform.localScale.x + 0.05f
+                && contact.point.x >= transform.position.x - 0.5f * transform.localScale.x - 0.05f)
             {
                 cournersTouching++;
             }
@@ -54,21 +54,21 @@ public class PlayerMovement : MonoBehaviour
         if ((Input.GetAxis("Vertical") > 0.3 || Input.GetKey(KeyCode.Space)) && grounded
             && rb.velocity.y < 0.1f) 
         {
-            rb.AddForce(new Vector2(0, JumpPower));
+            rb.AddForce(new Vector2(0, jumpPower));
         }
         float power;
         if (grounded)
         {
-            power = PlayerPower;
+            power = playerPower;
         }
         else
         {
-            power = PlayerPowerInAir;
+            power = playerPowerInAir;
         }
-        if (MaxSpeed >= Mathf.Abs(rb.velocity.x))
+        if (maxSpeed >= Mathf.Abs(rb.velocity.x))
         {
             rb.AddForce(new Vector2(power * Input.GetAxis("Horizontal")
-                * Mathf.Max(Mathf.Min(MaxSpeed - Mathf.Abs(rb.velocity.x), 1), -1), 0));
+                * Mathf.Max(Mathf.Min(maxSpeed - Mathf.Abs(rb.velocity.x), 1), -1), 0));
         }
     }
 }
